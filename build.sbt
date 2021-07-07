@@ -10,6 +10,15 @@ scalaVersion := "2.13.6"
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 
+// JDBC
+libraryDependencies ++= Seq(
+  jdbc
+)
+
+libraryDependencies ++= Seq(
+  "mysql" % "mysql-connector-java" % "5.1.41"
+)
+
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.inventine.controllers._"
 
