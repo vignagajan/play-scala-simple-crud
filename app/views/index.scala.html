@@ -1,5 +1,66 @@
-@()
+@(members:Seq[Member], updateMember:Member)
 
-@main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
-}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href='@routes.Assets.versioned("stylesheets/main.css")' rel='stylesheet'>
+  </head>
+
+  <body>
+
+    <h1>Group-Eleven Member Details</h1>
+    <br />
+
+    <!-- Member Form -->
+    <div>
+      <form method= "GET" action=@if(updateMember.id == 0){"memberCreateFormPost"} @if(updateMember.id != 0){"memberUpdateFormPost"}> 
+        <input type="hidden" id="id" name="id" value="@updateMember.id"> 
+        <input type="text" id="fname" name="firstname" placeholder="Member first name.." value="@updateMember.firstName">
+        <input type="text" id="lname" name="lastname" placeholder="Member last name.." value="@updateMember.lastName">
+        <input type="text" id="indexno" name="indexno" placeholder="Member index number.." value="@updateMember.indexNo">
+        <input type="text" id="email" name="email" placeholder="Member email.." value="@updateMember.email">
+        <br /> <br />
+        @if(updateMember.id == 0){
+          <input type="submit" style="border-radius: 10px;" value="Create">
+        }
+        @if(updateMember.id != 0){
+          <input type="submit" style="border-radius: 10px; background-color: #4CAF50;" value="Update">
+        }
+      </form>
+    </div>
+    <br />
+
+    <!-- Member Table -->
+    <table id="members">
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Index No</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+
+      @for(member <- members){
+        <tr>
+          <td>@(member.firstName)</td>
+          <td>@(member.lastName)</td>
+          <td>@(member.indexNo)</td>
+          <td>@(member.email)</td>
+          <td> <a href='memberUpdatePost?id=@(member.id)'>
+              <button style="background-color: #4CAF50;">
+                Update
+              </button></a>
+              <a href='memberDeletePost?id=@(member.id)'>
+              <button style="background-color: #b31414;">
+                  Delete
+              </button></a>
+        </td>
+        </tr>
+      }
+
+    </table>
+
+  </body>
+</html>
